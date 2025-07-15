@@ -1,0 +1,60 @@
+models:
+  - name: dim_channels
+    description: "Dimension table containing channel names"
+    columns:
+      - name: channel
+        description: "Channel identifier (raw string)"
+        tests:
+          - not_null
+          - unique
+
+      - name: channel_name
+        description: "Formatted human-readable name"
+
+  - name: dim_dates
+    description: "Date dimension table for time-based analysis"
+    columns:
+      - name: date_day
+        description: "The date of the message"
+        tests:
+          - not_null
+          - unique
+
+      - name: day_of_week
+        description: "Day of the week (0=Sunday)"
+
+      - name: month
+        description: "Month of the year (1-12)"
+
+      - name: year
+        description: "Year of the message"
+
+  - name: fct_messages
+    description: "Fact table with one row per message"
+    columns:
+      - name: message_id
+        description: "Primary key for messages"
+        tests:
+          - unique
+          - not_null
+
+      - name: date_day
+        description: "Foreign key to dim_dates"
+
+      - name: channel
+        description: "Foreign key to dim_channels"
+
+      - name: message_length
+        description: "Length of the message text"
+
+      - name: has_photo
+        description: "Whether the message had an image"
+
+  - name: fct_image_detections
+    description: "Object detection results per image linked to message ID"
+    columns:
+      - name: message_id
+        tests: [not_null]
+      - name: object_class
+      - name: confidence_score
+      - name: image_path

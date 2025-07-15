@@ -1,0 +1,11 @@
+models:
+  - name: stg_telegram_messages
+    description: "Cleaned Telegram messages from the raw layer"
+    columns:
+      - name: message_id
+        tests:
+          - unique
+          - not_null
+      - name: date
+        tests:
+          - not_null

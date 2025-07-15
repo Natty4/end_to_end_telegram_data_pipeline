@@ -1,0 +1,16 @@
+# Secrets
+.env
+*.session
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.env/
+
+# Data
+data
+data/raw/**
+data/enriched/**
+
+-P
